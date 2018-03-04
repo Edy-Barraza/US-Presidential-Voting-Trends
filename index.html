@@ -168,7 +168,12 @@ svg.append("text")
   	.attr("y", padding/2)
   	.style("font-size", "34px")
   	.attr("fill","black");
-
+ svg.append("text")
+  .text("Data retrieved from the US Census 2018")
+  .attr("x",padding)
+    .attr("y", (height-padding/2)+35)
+    .style("font-size", "17px")
+    .attr("fill","black");
 
 //grids
 // gridScale=d3.scaleLinear()
