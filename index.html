@@ -126,7 +126,7 @@ var votingData;
 
 d3.json("votingbydemographic.json", function (error, data) {
   votingData = data;
-  var padding=100; var width=1100; var height=800;
+  var padding=100; var width=1200; var height=800;
 d3.select("body").append("svg").attr("id","lineGraph").attr("width", width).attr("height", height);
 
 var svg= d3.select("#lineGraph");
@@ -352,6 +352,13 @@ pathHispanic=[];
 	.attr("x",xLoc+pad)
   	.attr("y", yLoc+80+ypad)
   	.attr("fill","black");
+
+    svg.append("text")
+  .text("*Voting data was not collected for Asian and Pacific Islanders before 1992")
+    .attr("x",110)
+    .attr("y", (height-padding/2)-15)
+    .attr("fill","black")
+    .attr("font-size",10);
 });
 
 
