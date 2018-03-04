@@ -62,17 +62,17 @@ d3.json("us.json",function(error,rawMap){
 })
 svg3.append("text").text("Average Voting Rates in Presidential Election Per State").attr("x",50).attr("y", 35).style("font-size","20px").attr("fill","black");
 svg3.append("circle").attr("r",5).attr("cx",20).attr("cy",430).attr("fill","#f1eef6");
-svg3.append("text").text("< 50%").attr("x",30).attr("y",435).attr("fill","black").style("font-size","15px");
+svg3.append("text").text("< 50%").attr("x",30).attr("y",435).attr("fill","black").style("font-size","14px");
 svg3.append("circle").attr("r",5).attr("cx",110).attr("cy",430).attr("fill","#d0d1e6");
-svg3.append("text").text("< 55%").attr("x",120).attr("y",435).attr("fill","black").style("font-size","15px");
+svg3.append("text").text("< 55%").attr("x",120).attr("y",435).attr("fill","black").style("font-size","14px");
 svg3.append("circle").attr("r",5).attr("cx",200).attr("cy",430).attr("fill","#a6bddb");
-svg3.append("text").text("< 60%").attr("x",210).attr("y",435).attr("fill","black").style("font-size","15px");
+svg3.append("text").text("< 60%").attr("x",210).attr("y",435).attr("fill","black").style("font-size","14px");
 svg3.append("circle").attr("r",5).attr("cx",290).attr("cy",430).attr("fill","#74a9cf");
-svg3.append("text").text("< 65%").attr("x",300).attr("y",435).attr("fill","black").style("font-size","15px");
+svg3.append("text").text("< 65%").attr("x",300).attr("y",435).attr("fill","black").style("font-size","14px");
 svg3.append("circle").attr("r",5).attr("cx",380).attr("cy",430).attr("fill","#2b8cbe");
-svg3.append("text").text("< 70%").attr("x",390).attr("y",435).attr("fill","black").style("font-size","15px");
+svg3.append("text").text("< 70%").attr("x",390).attr("y",435).attr("fill","black").style("font-size","14px");
 svg3.append("circle").attr("r",5).attr("cx",470).attr("cy",430).attr("fill","#045a8d");
-svg3.append("text").text("> or = 70%").attr("x",480).attr("y",435).attr("fill","black").style("font-size","15px");
+svg3.append("text").text("> or = 70%").attr("x",480).attr("y",435).attr("fill","black").style("font-size","14px");
 
 var height = 450;   
 var width = 550;
@@ -107,8 +107,8 @@ years.forEach(function(d){
 })
 svg2.append("circle").attr("r",5).attr("cx",460).attr("cy",87).attr("fill","#3182bd");
 svg2.append("circle").attr("r",5).attr("cx",460).attr("cy",107).attr("fill","#de2d26");
-svg2.append("text").text("Democratic").attr("x",470).attr("y",93).attr("fill","black");
-svg2.append("text").text("Republican").attr("x",470).attr("y",113).attr("fill","black");
+svg2.append("text").text("Democratic").attr("x",470).attr("y",93).attr("fill","black").style("font-size","14px");
+svg2.append("text").text("Republican").attr("x",470).attr("y",113).attr("fill","black").style("font-size","14px");
 svg2.append("text").text("Average Voting Rates in Presidential Election").attr("x",padding).attr("y", padding/2)
     .style("font-size","24px").attr("fill","black");
 svg2.append("text").text("Year").attr("x",width/2).attr("y",height-padding/2).style("font-size","15px")
