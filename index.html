@@ -212,14 +212,28 @@ var voteScale=d3.scaleLinear()
 var xAxis=d3.axisBottom(yearScale).tickValues(years)
 .tickFormat(d3.format("d"));
   svg.append("g")
-  .attr("transform","translate(0,700)")
+  .attr("transform","translate(0,600)")
   .call(xAxis);
 var yAxis=d3.axisLeft(voteScale)
   svg.append("g")
   .attr("transform","translate(100,0)")
   .call(yAxis);
+
+//grids
+
+function make_y_gridlines() {
+    return d3.axisLeft(voteScale)
+}
+
+// add the Y gridlines
+  svg.append("g")
+      .attr("class", "grid")
+      .attr("transform", "translate("+padding+",0)")
+      .call(make_y_gridlines()
+          .tickSize(-width)
+          .tickFormat("")
+      );
 svg.append("text")
-	//.attr("transform", "rotate(-90)")
 	.text("Voting Rate (%)")
 	.attr("x",padding/2)
   	.attr("y", height/2)
@@ -246,23 +260,7 @@ svg.append("text")
     .style("font-size", "17px")
     .attr("fill","black");
 
-//grids
-// gridScale=d3.scaleLinear()
-//   .domain([25, 65])
-//   .range([height-padding, padding]);
-// gridlines in y axis function
-function make_y_gridlines() {
-    return d3.axisLeft(voteScale)
-}
 
-// add the Y gridlines
-  svg.append("g")
-      .attr("class", "grid")
-      .attr("transform", "translate("+padding+",0)")
-      .call(make_y_gridlines()
-          .tickSize(-width)
-          .tickFormat("")
-      )
 
 svg.append("line")
 .attr("x1", padding+1)
