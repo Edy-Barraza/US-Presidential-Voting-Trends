@@ -54,15 +54,24 @@ header {
 			.range([50,1200])
 
 		function color_key(svg){
+			var start_percent= -12.5
 			for (var i = 0; i < colors_percents.length; i++) {
 				var width=key_scale(i+1)-key_scale(i)
-				console.log(width)
-    		svg.append("rect")
+    		svg.append("g").append("rect")
 					.attr("x",key_scale(i))
-					.attr("y",370)
+					.attr("y",350)
 					.attr("height",10)
 					.attr("width",width)
-					.attr("fill",colors_percents[i])
+					.attr("fill",colors_percents[i]);
+
+				percent_text=(start_percent+i*2.5).toString()+"%"+"↔" +(start_percent+(i+1)*2.5).toString()+"%"
+				svg.append("text")
+					.text(percent_text)
+					.attr("x",key_scale(i)+ (width/2) )
+					.attr("y",340)
+					.attr("text-anchor","middle")
+
+
 
 
 			}
