@@ -6,6 +6,7 @@
 	<meta charset="UTF-8">
 	<title> US Presidential Voting Trends</title>
 	<script src="https://d3js.org/d3.v4.min.js"></script>
+	<script src="https://d3js.org/topojson.v2.min.js"></script>
 
 </head>
 
@@ -17,9 +18,83 @@
 
 
     <!--NOTE: Standard Map Size; Work In Progress -->
-    <svg height="1400" width="1100">
-
+    <svg height="400" width="1100" id="p1">
     </svg>
+
+		<svg height="400" width="1100" id="p2">
+		</svg>
+
+		<svg height="400" width="1100" id="p3">
+		</svg>
+
+
+
+
+
+		<script>
+		//colors for changes in voting percents
+		color_map = d3.scaleQuantize()
+			.domain([-12.5,12.5])
+			.range(["#67001f","#b2182b", "#d6604d", "#f4a582", "#fddbc7", "#d1e5f0","#92c5de","#4393c3","#2166ac","#053061"]);
+
+		projection_percent=d3.geoAlbersUsa().scale(700);
+		pathGenerator_percent= d3.geoPath().projection(projection_percent);
+
+		function percent_change(rawRates,state,yrf,yri){
+			var val;
+			rawRates.forEach(function(el){
+				if (el["State"] ==state){
+					val = (el["rate_"+yrf]-el["rate_"+yri])
+				}
+			})
+			return val
+		}
+
+		function callback_help(svg,the_states,new_class,rawRates,yrf,yri){
+			new_class="."+new_class
+			svg.append("g")
+				.attr("transform","translate(0,-30)")
+				.selectAll(new_class)
+				.data(the_states)
+				.enter().append("path")
+					.attr("class",new_class)
+					.attr("d",pathGenerator_percent)
+					.attr("fill",function(d){
+						return color_map(percent_change(rawRates,d.properties.name,yrf,yri));
+					})
+		}
+		function border_generator(svg,rawMap){
+			svg.append("path")
+				.attr("transform","translate(0,-30)")
+				.attr("fill","none")
+	      .attr("stroke", "#fff")
+	      .attr("stroke-width", 1.0)
+	      .attr("d", pathGenerator_percent(topojson.mesh(rawMap, rawMap.objects.states, function(a, b) { return a !== b; })));
+		}
+
+		svgp1= d3.select("#p1");
+		svgp2= d3.select("#p2");
+		svgp3= d3.select("#p3");
+
+
+		d3.queue()
+			.defer(d3.json, "data/usa.json")
+			.defer(d3.json, "data/state_voting_rates_by_yr.json")
+			.await(callback_p1);
+
+		function callback_p1(error, rawMap, rawRates){
+			var states_p=topojson.feature(rawMap,rawMap.objects.states).features
+			callback_help(svgp1,states_p,"p1",rawRates,"2016","2012")
+			border_generator(svgp1,rawMap);
+
+			callback_help(svgp2,states_p,"p2",rawRates,"2012","2008")
+			border_generator(svgp2,rawMap)
+
+			callback_help(svgp3,states_p,"p3",rawRates,"2008","2004")
+			border_generator(svgp3,rawMap)
+		}
+
+		</script>
 
 
 
