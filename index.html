@@ -44,9 +44,29 @@ header {
 
 		<script>
 		//colors for changes in voting percents
+		colors_percents = ["#67001f","#b2182b", "#d6604d", "#f4a582", "#fddbc7", "#d1e5f0","#92c5de","#4393c3","#2166ac","#053061"]
 		color_map = d3.scaleQuantize()
 			.domain([-12.5,12.5])
-			.range(["#67001f","#b2182b", "#d6604d", "#f4a582", "#fddbc7", "#d1e5f0","#92c5de","#4393c3","#2166ac","#053061"]);
+			.range(colors_percents);
+
+		key_scale = d3.scaleLinear()
+			.domain([0,10])
+			.range([50,1200])
+
+		function color_key(svg){
+			for (var i = 0; i < colors_percents.length; i++) {
+				var width=key_scale(i+1)-key_scale(i)
+				console.log(width)
+    		svg.append("rect")
+					.attr("x",key_scale(i))
+					.attr("y",370)
+					.attr("height",10)
+					.attr("width",width)
+					.attr("fill",colors_percents[i])
+
+
+			}
+		}
 
 		projection_percent=d3.geoAlbersUsa().scale(525);
 		pathGenerator_percent= d3.geoPath().projection(projection_percent);
@@ -115,10 +135,8 @@ header {
 				.attr("font-size","15px")
 				.attr("fill","black")
 
+			 color_key(svgp1);
 
-			/*
-			.style("text-anchor", "middle")
-			.style("alignment-baseline", "middle");*/
 
 		}
 
@@ -187,9 +205,9 @@ svg2.append("g").attr("transform","translate(0,380)").call(xAxis);
 svg2.append("g").attr("transform","translate(70,0)").call(yAxis);
 years.forEach(function(d){
   var apy = data.apy[d];
-  console.log(apy);
+
   var party = data.party[d];
-  console.log(party);
+
   if (party == "R"){
     svg2.append("circle").attr("r",4).attr("cx",xScale(d)).attr("cy", yScale(apy)).attr("fill","#de2d26");
   }else {
@@ -294,9 +312,9 @@ pathWhite=[]; pathWhiteNH=[]; pathBlack=[]; pathAsian=[];
 pathHispanic=[];
   years.forEach(function(y,i){
 	var total=votingData.Total[y];
-	console.log(total);
+
 	var white=votingData.White[y]*Math.pow(10,5)/total;//#113777
-	console.log(white);
+
 	var whitenh=(votingData.WhiteNH[y]*Math.pow(10,5))/total; //#428ff4
 	var black=(votingData.Black[y]*Math.pow(10,5))/total;//#771616
 	var asian=votingData.Asian[y];
