@@ -48,15 +48,13 @@ header {
 			.domain([-12.5,12.5])
 			.range(["#67001f","#b2182b", "#d6604d", "#f4a582", "#fddbc7", "#d1e5f0","#92c5de","#4393c3","#2166ac","#053061"]);
 
-		projection_percent=d3.geoAlbersUsa().scale(500);
+		projection_percent=d3.geoAlbersUsa().scale(525);
 		pathGenerator_percent= d3.geoPath().projection(projection_percent);
 
 		function percent_change(rawRates,state,yrf,yri){
 			var val;
 			rawRates.forEach(function(el){
-				if (el["State"] ==state){
-					val = (el["rate_"+yrf]-el["rate_"+yri])
-				}
+				if (el["State"] ==state){val = (el["rate_"+yrf]-el["rate_"+yri])}
 			})
 			return val
 		}
@@ -85,11 +83,8 @@ header {
 
 		}
 
+
 		svgp1= d3.select("#p1");
-		svgp2= d3.select("#p2");
-		svgp3= d3.select("#p3");
-
-
 		d3.queue()
 			.defer(d3.json, "data/usa.json")
 			.defer(d3.json, "data/state_voting_rates_by_yr.json")
@@ -97,8 +92,33 @@ header {
 
 		function callback_p1(error, rawMap, rawRates){
 			callback_help(svgp1,rawRates,rawMap,"p1","-265","-100","2008","2004")
+			svgp1.append("text")
+				.text(" 2004→2008 Change In Voting Rates ")
+				.attr("x", 110)
+				.attr("y", 30)
+				.attr("font-size","15px")
+				.attr("fill","black")
+
 			callback_help(svgp1,rawRates,rawMap,"p1", "150","-100","2012","2008")
+			svgp1.append("text")
+				.text(" 2008→2012 Change In Voting Rates ")
+				.attr("x", 525)
+				.attr("y", 30)
+				.attr("font-size","15px")
+				.attr("fill","black")
+
 			callback_help(svgp1,rawRates,rawMap,"p1", "565","-100","2016","2012")
+			svgp1.append("text")
+				.text(" 2012→2016 Change In Voting Rates ")
+				.attr("x", 935)
+				.attr("y", 30)
+				.attr("font-size","15px")
+				.attr("fill","black")
+
+
+			/*
+			.style("text-anchor", "middle")
+			.style("alignment-baseline", "middle");*/
 
 		}
 
