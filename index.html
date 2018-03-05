@@ -35,15 +35,11 @@ header {
 
 
 
-<<<<<<< HEAD
     <!--NOTE: Standard Map Size; Work In Progress -->
-    <svg height="400" width="1200" id="p1">
+    <svg height="400" width="1250" id="p1">
     </svg>
 
-		<svg height="400" width="1200" id="p2">
-		</svg>
 
-		<svg height="400" width="1100" id="p3">
 		</svg>
 
 		<script>
@@ -52,7 +48,7 @@ header {
 			.domain([-12.5,12.5])
 			.range(["#67001f","#b2182b", "#d6604d", "#f4a582", "#fddbc7", "#d1e5f0","#92c5de","#4393c3","#2166ac","#053061"]);
 
-		projection_percent=d3.geoAlbersUsa().scale(700);
+		projection_percent=d3.geoAlbersUsa().scale(500);
 		pathGenerator_percent= d3.geoPath().projection(projection_percent);
 
 		function percent_change(rawRates,state,yrf,yri){
@@ -65,10 +61,12 @@ header {
 			return val
 		}
 
-		function callback_help(svg,the_states,new_class,rawRates,yrf,yri){
+		function callback_help(svg,rawRates,rawMap,new_class,shift_x,shift_y,yrf,yri){
+			var the_states=topojson.feature(rawMap,rawMap.objects.states).features
 			new_class="."+new_class
+			//add the states
 			svg.append("g")
-				.attr("transform","translate(0,-30)")
+				.attr("transform","translate("+shift_x+","+shift_y+")")
 				.selectAll(new_class)
 				.data(the_states)
 				.enter().append("path")
@@ -76,15 +74,15 @@ header {
 					.attr("d",pathGenerator_percent)
 					.attr("fill",function(d){
 						return color_map(percent_change(rawRates,d.properties.name,yrf,yri));
-					})
-		}
-		function border_generator(svg,rawMap){
+						})
+			//add the mesh
 			svg.append("path")
-				.attr("transform","translate(0,-30)")
+				.attr("transform","translate("+shift_x+","+shift_y+")")
 				.attr("fill","none")
-	      .attr("stroke", "#fff")
-	      .attr("stroke-width", 1.0)
-	      .attr("d", pathGenerator_percent(topojson.mesh(rawMap, rawMap.objects.states, function(a, b) { return a !== b; })));
+				.attr("stroke", "#fff")
+				.attr("stroke-width", 1.0)
+				.attr("d", pathGenerator_percent(topojson.mesh(rawMap, rawMap.objects.states, function(a, b) { return a !== b; })))
+
 		}
 
 		svgp1= d3.select("#p1");
@@ -98,15 +96,10 @@ header {
 			.await(callback_p1);
 
 		function callback_p1(error, rawMap, rawRates){
-			var states_p=topojson.feature(rawMap,rawMap.objects.states).features
-			callback_help(svgp1,states_p,"p1",rawRates,"2016","2012")
-			border_generator(svgp1,rawMap);
+			callback_help(svgp1,rawRates,rawMap,"p1","-265","-100","2008","2004")
+			callback_help(svgp1,rawRates,rawMap,"p1", "150","-100","2012","2008")
+			callback_help(svgp1,rawRates,rawMap,"p1", "565","-100","2016","2012")
 
-			callback_help(svgp2,states_p,"p2",rawRates,"2012","2008")
-			border_generator(svgp2,rawMap)
-
-			callback_help(svgp3,states_p,"p3",rawRates,"2008","2004")
-			border_generator(svgp3,rawMap)
 		}
 
 		</script>
