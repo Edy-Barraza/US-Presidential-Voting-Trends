@@ -33,7 +33,9 @@ header {
     US Presidential Voting Trends
   </h1>
    <h4>
-   When it comes to voting in the US, there exists intersting trends in the voting rate by election year, by state, and by race. <br>The timeline of the US maps shows the rate of increase or decrease in voting rate per state.
+   When it comes to voting in the US, there exists intersting trends in the voting rate by election year, by state, and by race.
+	 <br>
+	 The timeline of the US maps shows the rate of increase or decrease in voting rate per state.
    </h4>
   </header>
 
@@ -180,17 +182,13 @@ d3.json("us.json",function(error,rawMap){
     else if (colordata < 70) {return '#2b8cbe'}
     else {return '#045a8d'};
   })
-  }
-	/*
-	[width/2,height/2-15]
-	svg.append("path")
-		.attr("transform","translate("+shift_x+","+shift_y+")")
+	svg3.append("path")
 		.attr("fill","none")
 		.attr("stroke", "#fff")
 		.attr("stroke-width", 1.0)
-		.attr("d", pathGenerator_percent(topojson.mesh(rawMap, rawMap.objects.states, function(a, b) { return a !== b; })))
-		*/
-)
+		.attr("d", pathGenerator(topojson.mesh(rawMap, rawMap.objects.states, function(a, b) { return a !== b; })))
+
+  })
 })
 svg3.append("text").text("Average Voting Rates in Presidential Election Per State").attr("x",60).attr("y", 35).style("font-size","20px").attr("fill","black");
 svg3.append("circle").attr("r",5).attr("cx",30).attr("cy",400).attr("fill","#f1eef6").attr("transform","translate(0,-10)");
