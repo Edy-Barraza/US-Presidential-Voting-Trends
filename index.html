@@ -64,7 +64,7 @@ header {
 					.attr("width",width)
 					.attr("fill",colors_percents[i]);
 
-				percent_text=(start_percent+i*2.5).toString()+"%"+"↔" +(start_percent+(i+1)*2.5).toString()+"%"
+				percent_text=(start_percent+i*2.5).toString()+"%"+"-" +(start_percent+(i+1)*2.5).toString()+"%"
 				svg.append("text")
 					.text(percent_text)
 					.attr("x",key_scale(i)+ (width/2) )
