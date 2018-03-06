@@ -16,7 +16,7 @@ body {
 
       }
 .grid line {
-  stroke:#C5C4C4;
+  stroke:#dbd6d6;
   stroke-opacity: 0.7;
   shape-rendering: crispEdges;
   border: dotted;
@@ -33,7 +33,7 @@ header {
     US Presidential Voting Trends
   </h1>
    <h4>
-   When it comes to voting in the US, there exists intersting trends in the voting rate by election year, by state, and by race.
+   When it comes to voting in the US, there exist interesting trends in the voting rate by election year, by state, and by race.
 	 <br>
 	 The timeline of the US maps shows the rate of increase or decrease in voting rate per state.
    </h4>
@@ -268,16 +268,6 @@ var yearScale=d3.scaleLinear()
 var voteScale=d3.scaleLinear()
   .domain([20, 70])
   .range([height-padding, padding]);
-//Axes
-var xAxis=d3.axisBottom(yearScale).tickValues(years)
-.tickFormat(d3.format("d"));
-  svg.append("g")
-  .attr("transform","translate(0,600)")
-  .call(xAxis);
-var yAxis=d3.axisLeft(voteScale)
-  svg.append("g")
-  .attr("transform","translate(100,0)")
-  .call(yAxis);
 
 //grids
 
@@ -293,6 +283,18 @@ function make_y_gridlines() {
           .tickSize(-width)
           .tickFormat("")
       );
+//Axes
+var xAxis=d3.axisBottom(yearScale).tickValues(years)
+.tickFormat(d3.format("d"));
+  svg.append("g")
+  .attr("transform","translate(0,500)")
+  .call(xAxis);
+var yAxis=d3.axisLeft(voteScale)
+  svg.append("g")
+  .attr("transform","translate(100,0)")
+  .call(yAxis);
+
+
 svg.append("text")
 	.text("Voting Rate (%)")
 	.attr("x",padding/2)
@@ -468,27 +470,27 @@ pathHispanic=[];
   	.attr("fill","black");
 
   	svg.append("text")
-	.text("Black")
-	.attr("x",xLoc+pad)
-  	.attr("y", yLoc+40+ypad)
-  	.attr("fill","black");
+	   .text("Black")
+	   .attr("x",xLoc+pad)
+     .attr("y", yLoc+40+ypad)
+  	 .attr("fill","black");
 
 
   	svg.append("text")
-	.text("Asian and Pacific Islander")
-	.attr("x",xLoc+pad)
+	   .text("Asian and Pacific Islander")
+	   .attr("x",xLoc+pad)
   	.attr("y", yLoc+60+ypad)
   	.attr("fill","black");
 
 
   	svg.append("text")
-	.text("Hispanic")
-	.attr("x",xLoc+pad)
+	   .text("Hispanic")
+	   .attr("x",xLoc+pad)
   	.attr("y", yLoc+80+ypad)
   	.attr("fill","black");
 
     svg.append("text")
-  .text("*Voting data was not collected for Asian and Pacific Islanders before 1992")
+    .text("*Voting data was not collected for Asian and Pacific Islanders before 1992")
     .attr("x",110)
     .attr("y", (height-padding/2)-15)
     .attr("fill","black")
